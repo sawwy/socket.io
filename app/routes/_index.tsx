@@ -1,6 +1,4 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-import { Login } from "~/login/Login";
-import "~/styles/reset.css";
+import { redirect, type MetaFunction } from "@remix-run/cloudflare";
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,6 +10,6 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Index() {
-  return <Login />;
+export async function loader() {
+  return redirect("/joinroom");
 }

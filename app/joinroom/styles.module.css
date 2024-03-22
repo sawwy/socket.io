@@ -6,7 +6,7 @@
   width: 100vw;
 }
 
-.login {
+.joinroom {
   position: relative;
   width: 300px;
   display: flex;
@@ -32,7 +32,7 @@
   }
 }
 
-.loginButton {
+.joinroomButton {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -9,12 +9,18 @@ export const JoinRoom = () => {
   const usernameInputId = useId();
   const navigate = useNavigate();
 
-  const handleJoinRoom = () => {
+  const handleJoinRoom = async () => {
     if (!(username.length > 3)) {
       setUsernameError(UsernameErrors.TooShort);
       return;
     }
-    navigate("/lobby");
+    const response = await fetch("/api/v1/joinroom", {
+      method: "POST",
+    });
+
+    if (response.ok) {
+      navigate("/lobby");
+    }
   };
 
   const handleOnTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {

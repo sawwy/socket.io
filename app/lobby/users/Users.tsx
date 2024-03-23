@@ -45,26 +45,56 @@ export const Users = () => {
   const idleTreshold = new Date();
   idleTreshold.setMinutes(-15);
 
+  const onlineUsers = users.filter((user) => user.isOnline);
+  const offlineusers = users.filter((user) => !user.isOnline);
+
   return (
     <div className={styles.users}>
-      {users.map((user) => {
-        return (
-          <div className={styles.user} key={user.username}>
-            <div className={styles.avatar}>
-              <img alt={`avatar of user ${user.username}`} src={user.avatar} />
-              {user.isOnline && (
+      <div>
+        <div className={styles.usersHeading}>
+          <span>ONLINE - {onlineUsers.length}</span>
+        </div>
+        {onlineUsers.map((user) => {
+          return (
+            <div className={styles.user} key={user.username}>
+              <div className={styles.avatar}>
+                <img
+                  alt={`avatar of user ${user.username}`}
+                  src={user.avatar}
+                />
                 <div className={styles.status}>
                   <div className={styles.online} />
                   {user.lastSeen > idleTreshold && (
                     <div className={styles.idle} />
                   )}
                 </div>
-              )}
+              </div>
+              <span>{user.username}</span>
             </div>
-            <span>{user.username}</span>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+      <div>
+        <div className={styles.usersHeading}>
+          <span>OFFLINE - {offlineusers.length}</span>
+        </div>
+        {offlineusers.map((user) => {
+          return (
+            <div
+              className={`${styles.user} ${styles.offline}`}
+              key={user.username}
+            >
+              <div className={styles.avatar}>
+                <img
+                  alt={`avatar of user ${user.username}`}
+                  src={user.avatar}
+                />
+              </div>
+              <span>{user.username}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

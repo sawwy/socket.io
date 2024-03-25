@@ -53,7 +53,10 @@ export const UserDetails = ({
       <div className={styles.avatar}>
         <Avatar user={user} />
       </div>
-      <div className={styles.content}>
+      <div
+        data-testid={`lobby-user-details-${user.username}`}
+        className={styles.content}
+      >
         <div className={styles.userDetails}>
           <div className={styles.username}>{user.username}</div>
           <div>

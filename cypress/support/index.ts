@@ -8,6 +8,7 @@ declare global {
        * @example cy.dataCy('greeting')
        */
       openHomepage(): void;
+      openLobby(): void;
     }
   }
 }

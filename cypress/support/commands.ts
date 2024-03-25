@@ -39,3 +39,7 @@
 Cypress.Commands.add("openHomepage", () => {
   cy.visit("/");
 });
+
+Cypress.Commands.add("openLobby", () => {
+  cy.visit("/lobby");
+});

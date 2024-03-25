@@ -1,4 +1,4 @@
-import { Lobby } from "~/lobby/Lobby";
+import { Lobby } from "~/Lobby/Lobby";
 
 export default function LobbyRoute() {
   return <Lobby />;

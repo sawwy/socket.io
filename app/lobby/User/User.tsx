@@ -33,6 +33,7 @@ export const User = ({ user, setSelectedUserData }: UserPropsType) => {
 
   return (
     <button
+      data-testid={`lobby-user-button-${user.username}`}
       ref={userContainerRef}
       className={`${styles.user} ${!user.isOnline && styles.offline}`}
       key={user.username}

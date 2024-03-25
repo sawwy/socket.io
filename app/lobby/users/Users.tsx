@@ -31,7 +31,10 @@ export const Users = ({ setSelectedUserData }: UsersPropsType) => {
   return (
     <div className={styles.users}>
       <div>
-        <div className={styles.usersHeading}>
+        <div
+          data-testid="lobby-online-users-heading"
+          className={styles.usersHeading}
+        >
           <span>ONLINE - {onlineUsers.length}</span>
         </div>
         {onlineUsers.map((user) => {
@@ -45,7 +48,10 @@ export const Users = ({ setSelectedUserData }: UsersPropsType) => {
         })}
       </div>
       <div>
-        <div className={styles.usersHeading}>
+        <div
+          data-testid="lobby-offline-users-heading"
+          className={styles.usersHeading}
+        >
           <span>OFFLINE - {offlineusers.length}</span>
         </div>
         {offlineusers.map((user) => {

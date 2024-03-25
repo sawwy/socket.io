@@ -12,20 +12,19 @@
 }
 
 .animateIn {
-  animation: fadeIn 0.5s;
+  animation: fromLeft 0.3s;
 }
 
-@keyframes fadeIn {
+@keyframes fromLeft {
   from {
-    opacity: 0;
+    transform: translateX(-12px);
   }
   to {
-    opacity: 1;
+    transform: translateX(0);
   }
 }
 
 .header {
-  background-color: rgb(74, 72, 240);
   height: 2.5rem;
 }
 

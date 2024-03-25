@@ -31,7 +31,6 @@ export const handlers = [
         lastSeen: lastSeenDate1.toJSON(),
         joined: joinedDate1.toJSON(),
         username: "qwerty",
-        avatar: "https://ui-avatars.com/api/?name=Qwer&size=32",
         description: "",
       },
       {
@@ -39,7 +38,6 @@ export const handlers = [
         lastSeen: lastSeenDate2.toJSON(),
         joined: joinedDate2.toJSON(),
         username: "blarblar",
-        avatar: "https://ui-avatars.com/api/?name=Blar&size=32",
         description: "",
       },
       {
@@ -47,7 +45,6 @@ export const handlers = [
         lastSeen: lastSeenDate3.toJSON(),
         joined: joinedDate3.toJSON(),
         username: "dendi",
-        avatar: "https://ui-avatars.com/api/?name=Dendi&size=32",
         description: "",
       },
     ]);

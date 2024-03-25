@@ -2,6 +2,7 @@ import { useRef } from "react";
 import styles from "./styles.module.css";
 import { SelectedUserDataType, UserType } from "~/types";
 import { Avatar } from "~/components/Avatar/Avatar";
+import colorTheme from "~/themes/theme-color.css";
 
 type UserPropsType = {
   user: UserType;
@@ -33,7 +34,7 @@ export const User = ({ user, setSelectedUserData }: UserPropsType) => {
       key={user.username}
       onClick={() => handleOnClickUser(user)}
     >
-      <Avatar user={user} offline />
+      <Avatar user={user} />
       <span>{user.username}</span>
     </button>
   );

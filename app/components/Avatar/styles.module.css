@@ -1,11 +1,17 @@
 .avatar {
   position: relative;
   width: 32px;
+}
 
-  img {
-    width: 32px;
-    border-radius: 16px;
-  }
+.avatarContent {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: ;
 }
 
 .status {
@@ -39,4 +45,16 @@
   border-radius: 3px;
   top: 1px;
   left: 1px;
+}
+
+.fillGreen {
+  background-color: rgb(51, 151, 74);
+}
+
+.fillPink {
+  background-color: rgb(230, 40, 139);
+}
+
+.fillBlue {
+  background-color: rgb(74, 72, 240);
 }

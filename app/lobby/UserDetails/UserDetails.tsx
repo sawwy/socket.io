@@ -1,7 +1,9 @@
 import { SelectedUserDataType } from "~/types";
 import styles from "./styles.module.css";
+import globalStyles from "~/styles/styles.module.css";
 import { Avatar } from "~/components/Avatar/Avatar";
 import pluralize from "pluralize";
+import { getColorHighlight } from "~/utils/colorUtils";
 
 type UserDetailsPropsType = {
   selectedUserData: SelectedUserDataType;
@@ -51,7 +53,9 @@ export const UserDetails = ({ selectedUserData }: UserDetailsPropsType) => {
         left: rect.left - 256 - 16,
       }}
     >
-      <div className={styles.header} />
+      <div
+        className={`${styles.header} ${getColorHighlight(user, globalStyles)}`}
+      />
       <div className={styles.avatar}>
         <Avatar user={user} />
       </div>

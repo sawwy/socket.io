@@ -2,7 +2,6 @@ import { useRef } from "react";
 import styles from "./styles.module.css";
 import { SelectedUserDataType, UserType } from "~/types";
 import { Avatar } from "~/components/Avatar/Avatar";
-import colorTheme from "~/themes/theme-color.css";
 
 type UserPropsType = {
   user: UserType;
@@ -20,9 +19,14 @@ export const User = ({ user, setSelectedUserData }: UserPropsType) => {
   const handleOnClickUser = (user: UserType) => {
     if (userContainerRef.current) {
       const rect = userContainerRef.current.getBoundingClientRect();
-      setSelectedUserData({
-        user,
-        rect,
+      setSelectedUserData((prev) => {
+        if (prev?.user.username === user.username) {
+          return undefined;
+        }
+        return {
+          user,
+          rect,
+        };
       });
     }
   };

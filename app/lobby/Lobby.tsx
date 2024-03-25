@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
-import { Chat } from "./chat/Chat";
-import { Users } from "./users/Users";
+import { Chat } from "./Chat/Chat";
+import { Users } from "./Users/Users";
 import { useState } from "react";
 import { UserDetails } from "./UserDetails/UserDetails";
 import { SelectedUserDataType } from "~/types";
@@ -17,6 +17,7 @@ export const Lobby = () => {
         <UserDetails
           key={selectedUserData.user.username}
           selectedUserData={selectedUserData}
+          setSelectedUserData={setSelectedUserData}
         />
       )}
     </div>

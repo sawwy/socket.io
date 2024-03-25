@@ -9,34 +9,43 @@ export const handlers = [
   http.get("/api/v1/users", async () => {
     await delay("real");
 
-    const date1 = new Date();
-    date1.setMinutes(-20);
-    const date2 = new Date();
-    date2.setMinutes(-5);
-    const date3 = new Date();
-    date3.setHours(-7);
+    const lastSeenDate1 = new Date();
+    lastSeenDate1.setMinutes(lastSeenDate1.getMinutes() - 5);
+    const joinedDate1 = new Date();
+    joinedDate1.setFullYear(2020);
+
+    const lastSeenDate2 = new Date();
+    lastSeenDate2.setMinutes(lastSeenDate2.getMinutes() - 120);
+    const joinedDate2 = new Date();
+    joinedDate2.setFullYear(2023);
+    joinedDate2.setMonth(11);
+
+    const lastSeenDate3 = new Date();
+    lastSeenDate3.setMonth(1);
+    const joinedDate3 = new Date();
+    joinedDate3.setMinutes(-5);
 
     return HttpResponse.json([
       {
         isOnline: true,
-        lastSeen: date1.toJSON(),
-        joined: date1.toJSON(),
+        lastSeen: lastSeenDate1.toJSON(),
+        joined: joinedDate1.toJSON(),
         username: "qwerty",
         avatar: "https://ui-avatars.com/api/?name=Qwer&size=32",
         description: "",
       },
       {
         isOnline: true,
-        lastSeen: date2.toJSON(),
-        joined: date2.toJSON(),
+        lastSeen: lastSeenDate2.toJSON(),
+        joined: joinedDate2.toJSON(),
         username: "blarblar",
         avatar: "https://ui-avatars.com/api/?name=Blar&size=32",
         description: "",
       },
       {
         isOnline: false,
-        lastSeen: date3.toJSON(),
-        joined: date3.toJSON(),
+        lastSeen: lastSeenDate3.toJSON(),
+        joined: joinedDate3.toJSON(),
         username: "dendi",
         avatar: "https://ui-avatars.com/api/?name=Dendi&size=32",
         description: "",

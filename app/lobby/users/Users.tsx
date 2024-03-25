@@ -1,33 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import { SelectedUserDataType, UserResponseType, UserType } from "~/types";
+import { deserializeUsersResponse } from "~/utils/serializationUtils";
+import { User } from "../User/User";
 
-type UserType = {
-  isOnline: boolean;
-  lastSeen: Date;
-  joined: Date;
-  username: string;
-  avatar: string;
-  description: string;
+type UsersPropsType = {
+  setSelectedUserData: React.Dispatch<
+    React.SetStateAction<SelectedUserDataType | undefined>
+  >;
 };
 
-interface UserResponseType extends Omit<UserType, "lastSeen" | "joined"> {
-  lastSeen: string;
-  joined: string;
-}
-
-const deserializeUsersResponse = (data: UserResponseType[]) => {
-  const deserialized = data.map((user) => {
-    return {
-      ...user,
-      lastSeen: new Date(user.lastSeen),
-      joined: new Date(user.joined),
-    };
-  });
-
-  return deserialized;
-};
-
-export const Users = () => {
+export const Users = ({ setSelectedUserData }: UsersPropsType) => {
   const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
@@ -42,9 +25,6 @@ export const Users = () => {
     fetchUsers();
   }, []);
 
-  const idleTreshold = new Date();
-  idleTreshold.setMinutes(-15);
-
   const onlineUsers = users.filter((user) => user.isOnline);
   const offlineusers = users.filter((user) => !user.isOnline);
 
@@ -56,21 +36,11 @@ export const Users = () => {
         </div>
         {onlineUsers.map((user) => {
           return (
-            <div className={styles.user} key={user.username}>
-              <div className={styles.avatar}>
-                <img
-                  alt={`avatar of user ${user.username}`}
-                  src={user.avatar}
-                />
-                <div className={styles.status}>
-                  <div className={styles.online} />
-                  {user.lastSeen > idleTreshold && (
-                    <div className={styles.idle} />
-                  )}
-                </div>
-              </div>
-              <span>{user.username}</span>
-            </div>
+            <User
+              key={user.username}
+              user={user}
+              setSelectedUserData={setSelectedUserData}
+            />
           );
         })}
       </div>
@@ -80,18 +50,11 @@ export const Users = () => {
         </div>
         {offlineusers.map((user) => {
           return (
-            <div
-              className={`${styles.user} ${styles.offline}`}
+            <User
               key={user.username}
-            >
-              <div className={styles.avatar}>
-                <img
-                  alt={`avatar of user ${user.username}`}
-                  src={user.avatar}
-                />
-              </div>
-              <span>{user.username}</span>
-            </div>
+              user={user}
+              setSelectedUserData={setSelectedUserData}
+            />
           );
         })}
       </div>

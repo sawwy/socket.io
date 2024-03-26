@@ -1,10 +1,10 @@
-import { UserType } from "~/types";
+import { IUser } from "~/types";
 import styles from "./styles.module.css";
 import globalStyles from "~/styles/styles.module.css";
 import { getColorHighlight } from "~/utils/colorUtils";
 
 type AvatarPropsType = {
-  user: UserType;
+  user: IUser;
 };
 
 export const Avatar = ({ user }: AvatarPropsType) => {

@@ -1,31 +1,28 @@
-import { useState, useId, ChangeEvent, KeyboardEvent } from "react";
+import { useState, useId, ChangeEvent, KeyboardEvent, useContext } from "react";
 import styles from "./styles.module.css";
 import { useNavigate } from "@remix-run/react";
 import { UsernameErrors } from "~/enums";
+import SocketContext from "~/contexts/Socket/Context";
 
 export const Joinroom = () => {
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const usernameInputId = useId();
   const navigate = useNavigate();
+  const dispatch = useContext(SocketContext).SocketDispatch;
 
   const handleJoinRoom = async () => {
-    if (!(username.length > 3)) {
+    if (username.length < 4) {
       setUsernameError(UsernameErrors.TooShort);
       return;
     }
-    const response = await fetch("/api/v1/joinroom", {
-      method: "POST",
-    });
-
-    if (response.ok) {
-      navigate("/lobby");
-    }
+    navigate("/lobby");
   };
 
   const handleOnTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const textValue = e.target.value.toString();
     setUsername(textValue);
+    dispatch({ type: "update_username", payload: textValue });
     if (usernameError) {
       if (textValue.length > 3) {
         setUsernameError("");

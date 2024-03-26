@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import styles from "./styles.module.css";
-import { SelectedUserDataType, UserResponseType, UserType } from "~/types";
-import { deserializeUsersResponse } from "~/utils/serializationUtils";
+import { SelectedUserDataType } from "~/types";
 import { User } from "../User/User";
+import SocketContext from "~/contexts/Socket/Context";
 
 type UsersPropsType = {
   setSelectedUserData: React.Dispatch<
@@ -11,19 +11,7 @@ type UsersPropsType = {
 };
 
 export const Users = ({ setSelectedUserData }: UsersPropsType) => {
-  const [users, setUsers] = useState<UserType[]>([]);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch("/api/v1/users");
-      if (response.ok) {
-        const data: UserResponseType[] = await response.json();
-        setUsers(deserializeUsersResponse(data));
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  const { users } = useContext(SocketContext).SocketState;
 
   const onlineUsers = users.filter((user) => user.isOnline);
   const offlineusers = users.filter((user) => !user.isOnline);

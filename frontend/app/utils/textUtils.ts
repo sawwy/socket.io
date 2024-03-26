@@ -1,13 +1,13 @@
 import pluralize from "pluralize";
-import { UserType } from "~/types";
+import { IUser } from "~/types";
 
-export const getJoinedText = (user: UserType) => {
-  return `${user.joined.getDay()} ${user.joined.toLocaleString("default", {
+export const getJoinedText = (user: IUser) => {
+  return `${user.joined.getDate()} ${user.joined.toLocaleString("default", {
     month: "short",
   })} ${user.joined.getFullYear()}`;
 };
 
-export const getLastSeenText = (user: UserType) => {
+export const getLastSeenText = (user: IUser) => {
   const now = new Date();
   if (user.lastSeen.getFullYear() < now.getFullYear()) {
     const year = now.getFullYear() - user.lastSeen.getFullYear();

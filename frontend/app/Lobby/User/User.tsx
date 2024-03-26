@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import styles from "./styles.module.css";
-import { SelectedUserDataType, UserType } from "~/types";
+import { SelectedUserDataType, IUser } from "~/types";
 import { Avatar } from "~/components/Avatar/Avatar";
 
 type UserPropsType = {
-  user: UserType;
+  user: IUser;
   setSelectedUserData: React.Dispatch<
     React.SetStateAction<SelectedUserDataType | undefined>
   >;
@@ -16,7 +16,7 @@ export const User = ({ user, setSelectedUserData }: UserPropsType) => {
   const idleTreshold = new Date();
   idleTreshold.setMinutes(-15);
 
-  const handleOnClickUser = (user: UserType) => {
+  const handleOnClickUser = (user: IUser) => {
     if (userContainerRef.current) {
       const rect = userContainerRef.current.getBoundingClientRect();
       setSelectedUserData((prev) => {

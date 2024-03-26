@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 1rem;
+  gap: 1rem;
 }
 
 .input {
@@ -14,4 +15,14 @@
   height: 3rem;
   color: rgb(210, 213, 217);
   padding-left: 0.5rem;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.message {
+  color: rgb(210, 213, 217);
 }

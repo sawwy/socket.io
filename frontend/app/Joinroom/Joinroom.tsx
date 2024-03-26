@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import { useNavigate } from "@remix-run/react";
 import { UsernameErrors } from "~/enums";
 
-export const JoinRoom = () => {
+export const Joinroom = () => {
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const usernameInputId = useId();

@@ -1,32 +1,13 @@
 import { Server as HttpServer } from "http";
 import { Socket, Server } from "socket.io";
 import { v4 } from "uuid";
-
-enum MessageTypeEnum {
-  UserMessage = "userMessage",
-  SystemMessage = "systemMessage",
-}
-
-interface IUser {
-  id: string;
-  username: string;
-  isOnline: boolean;
-  lastSeen: Date;
-  joined: Date;
-}
-
-interface IUserMessage {
-  messageType: MessageTypeEnum.UserMessage;
-  message: string;
-  username: string;
-  timestamp: string;
-}
-
+import { IUser, IUserMessage } from "./types";
+import { MessageTypeEnum } from "./enums";
 export class ServerSocket {
   public static instance: ServerSocket;
   public io: Server;
 
-  /** Master list of all connected users */
+  // Master list of all connected users
   public users: { [userId: string]: IUser };
 
   constructor(server: HttpServer) {
@@ -67,7 +48,6 @@ export class ServerSocket {
           const uid = this.getUidFromSocketID(socket.id);
 
           if (uid) {
-            console.info("Sending callback for reconnect ...");
             this.users[uid].lastSeen = new Date();
             this.users[uid].isOnline = true;
             const users = Object.values(this.users);
@@ -88,7 +68,6 @@ export class ServerSocket {
         this.users[uid] = newUser;
 
         const users = Object.values(this.users);
-        console.info("Sending callback ...");
         callback(username, users);
 
         this.sendMessage(

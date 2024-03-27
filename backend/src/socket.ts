@@ -2,6 +2,11 @@ import { Server as HttpServer } from "http";
 import { Socket, Server } from "socket.io";
 import { v4 } from "uuid";
 
+enum MessageTypeEnum {
+  UserMessage = "userMessage",
+  SystemMessage = "systemMessage",
+}
+
 interface IUser {
   id: string;
   username: string;
@@ -10,7 +15,8 @@ interface IUser {
   joined: Date;
 }
 
-interface IMessage {
+interface IUserMessage {
+  messageType: MessageTypeEnum.UserMessage;
   message: string;
   username: string;
   timestamp: string;
@@ -39,10 +45,10 @@ export class ServerSocket {
       },
     });
 
-    this.io.on("connect", this.StartListeners);
+    this.io.on("connect", this.startListeners);
   }
 
-  StartListeners = (socket: Socket) => {
+  startListeners = (socket: Socket) => {
     console.info("Message received from " + socket.id);
 
     socket.on(
@@ -58,7 +64,7 @@ export class ServerSocket {
         if (reconnectedUser) {
           console.info("This user has reconnected.");
 
-          const uid = this.GetUidFromSocketID(socket.id);
+          const uid = this.getUidFromSocketID(socket.id);
 
           if (uid) {
             console.info("Sending callback for reconnect ...");
@@ -71,22 +77,32 @@ export class ServerSocket {
         }
 
         const uid = v4();
-        this.users[uid] = {
+
+        const newUser = {
           id: socket.id,
           username,
           isOnline: true,
           lastSeen: new Date(),
           joined: new Date(),
         };
+        this.users[uid] = newUser;
 
         const users = Object.values(this.users);
         console.info("Sending callback ...");
         callback(username, users);
 
-        this.SendMessage(
+        this.sendMessage(
           "user_connected",
           users.filter((user) => user.id !== socket.id),
           users
+        );
+        this.sendMessage(
+          "message",
+          users.filter((user) => user.id !== socket.id),
+          {
+            type: MessageTypeEnum.SystemMessage,
+            message: `${newUser.username} has joined the lobby, Hooray!`,
+          }
         );
       }
     );
@@ -94,28 +110,37 @@ export class ServerSocket {
     socket.on("disconnect", () => {
       console.info("Disconnect received from: " + socket.id);
 
-      const uid = this.GetUidFromSocketID(socket.id);
+      const uid = this.getUidFromSocketID(socket.id);
 
       if (uid) {
+        const disconnectedUser = { ...this.users[uid] };
         delete this.users[uid];
 
         const users = Object.values(this.users);
 
-        this.SendMessage("user_disconnected", users, socket.id);
+        this.sendMessage("user_disconnected", users, users);
+        this.sendMessage(
+          "message",
+          users.filter((user) => user.id !== socket.id),
+          {
+            type: MessageTypeEnum.SystemMessage,
+            message: `${disconnectedUser.username} has left the lobby, so long!`,
+          }
+        );
       }
     });
 
-    socket.on("message", (message: IMessage) => {
+    socket.on("message", (message: IUserMessage) => {
       console.info("message received: ", message);
       this.io.emit("message", message);
     });
   };
 
-  GetUidFromSocketID = (id: string) => {
+  getUidFromSocketID = (id: string) => {
     return Object.keys(this.users).find((uid) => this.users[uid].id === id);
   };
 
-  SendMessage = (name: string, users: IUser[], payload?: Object) => {
+  sendMessage = (name: string, users: IUser[], payload?: Object) => {
     console.info("Emitting event: " + name + " to", users);
     users.forEach((user) =>
       payload

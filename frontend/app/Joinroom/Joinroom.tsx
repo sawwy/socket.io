@@ -1,7 +1,7 @@
 import { useState, useId, ChangeEvent, KeyboardEvent, useContext } from "react";
 import styles from "./styles.module.css";
 import { useNavigate } from "@remix-run/react";
-import { UsernameErrors } from "~/enums";
+import { UsernameErrorsEnum } from "~/enums";
 import SocketContext from "~/contexts/Socket/Context";
 
 export const Joinroom = () => {
@@ -11,9 +11,9 @@ export const Joinroom = () => {
   const navigate = useNavigate();
   const dispatch = useContext(SocketContext).SocketDispatch;
 
-  const handleJoinRoom = async () => {
+  const handleJoinRoom = () => {
     if (username.length < 4) {
-      setUsernameError(UsernameErrors.TooShort);
+      setUsernameError(UsernameErrorsEnum.TooShort);
       return;
     }
     navigate("/lobby");

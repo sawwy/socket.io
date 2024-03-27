@@ -30,6 +30,22 @@ export const Lobby = () => {
 
   const startListeners = () => {
     if (socket) {
+      socket.on("user_connected", (users: UserResponseType[]) => {
+        console.info("User connected, new user list received");
+        dispatch({
+          type: "update_users",
+          payload: users.map((user) => deserializeUsersResponse(user)),
+        });
+      });
+
+      socket.on("user_disconnected", (users: UserResponseType[]) => {
+        console.info("User disconnected, new user list received");
+        dispatch({
+          type: "update_users",
+          payload: users.map((user) => deserializeUsersResponse(user)),
+        });
+      });
+
       socket.io.on("reconnect", (attempt: number) => {
         console.info("Reconnected on attempt: ", attempt);
       });
@@ -54,7 +70,7 @@ export const Lobby = () => {
           dispatch({ type: "update_username", payload: username });
           dispatch({
             type: "update_users",
-            payload: deserializeUsersResponse(users),
+            payload: users.map((user) => deserializeUsersResponse(user)),
           });
           dispatch({ type: "set_loading", payload: false });
         }

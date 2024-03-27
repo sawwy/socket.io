@@ -7,8 +7,10 @@ import {
 } from "react";
 import styles from "./styles.module.css";
 import SocketContext from "~/contexts/Socket/Context";
-import { IMessage, IUser } from "~/types";
-import { Avatar } from "~/components/Avatar/Avatar";
+import { IMessage, ISystemMessage, IUserMessage } from "~/types";
+import { UserMessage } from "~/components/UserMessage/UserMessage";
+import { MessageTypeEnum } from "~/enums";
+import { SystemMessage } from "~/components/SystemMessge/SystemMessage";
 
 export const Chat = () => {
   const [message, setMessage] = useState("");
@@ -18,7 +20,7 @@ export const Chat = () => {
     useContext(SocketContext).SocketState;
 
   useEffect(() => {
-    const onMessageEvent = (message: IMessage) => {
+    const onMessageEvent = (message: IUserMessage | ISystemMessage) => {
       setMessages((prev) => {
         const newState = [...prev];
         newState.push(message);
@@ -44,7 +46,12 @@ export const Chat = () => {
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
       const timestamp = new Date();
-      socket.emit("message", { message, username, timestamp });
+      socket.emit("message", {
+        message,
+        username,
+        timestamp,
+        type: MessageTypeEnum.UserMessage,
+      });
       setMessage("");
     }
   };
@@ -58,18 +65,13 @@ export const Chat = () => {
   return (
     <div className={styles.chat}>
       <div className={styles.messages}>
-        {messages.map((message, i) => {
-          return (
-            <div key={i} className={styles.message}>
-              {user && <Avatar user={user} />}
-              <div>
-                <p>{message.username}</p>
-                <p>{message.timestamp}</p>
-                <p>{message.message}</p>
-              </div>
-            </div>
-          );
-        })}
+        {messages.map((message, i) =>
+          message.type === MessageTypeEnum.UserMessage ? (
+            <UserMessage key={i} user={user} message={message} />
+          ) : (
+            <SystemMessage key={i} message={message} />
+          )
+        )}
       </div>
       <input
         className={styles.input}

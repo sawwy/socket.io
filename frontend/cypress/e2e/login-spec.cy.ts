@@ -1,4 +1,4 @@
-import { UsernameErrors } from "~/enums";
+import { UsernameErrorsEnum } from "~/enums";
 
 describe("joinroom spec", () => {
   it("displays username errors correctly", () => {
@@ -6,12 +6,12 @@ describe("joinroom spec", () => {
     cy.get('[data-testid="joinroom-button"]').click();
     cy.get('[data-testid="username-errors"]').should(
       "contain",
-      UsernameErrors.TooShort
+      UsernameErrorsEnum.TooShort
     );
     cy.get('[data-testid="username-input"]').type("asd{Enter}");
     cy.get('[data-testid="username-errors"]').should(
       "contain",
-      UsernameErrors.TooShort
+      UsernameErrorsEnum.TooShort
     );
     cy.get('[data-testid="username-input"]').type("f");
     cy.get('[data-testid="username-errors"]').should("be.empty");

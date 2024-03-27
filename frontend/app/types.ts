@@ -1,3 +1,5 @@
+import { MessageTypeEnum } from "./enums";
+
 export interface IUser {
   id: string;
   isOnline: boolean;
@@ -18,8 +20,18 @@ export type SelectedUserDataType = {
   rect: DOMRect;
 };
 
-export interface IMessage {
+export interface IUserMessage {
+  type: MessageTypeEnum.UserMessage;
   message: string;
   username: string;
   timestamp: string;
 }
+
+export interface ISystemMessage {
+  type: MessageTypeEnum.SystemMessage;
+  message: string;
+  username: string;
+  timestamp: string;
+}
+
+export type IMessage = ISystemMessage | IUserMessage;

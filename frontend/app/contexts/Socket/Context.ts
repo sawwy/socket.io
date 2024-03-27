@@ -48,13 +48,6 @@ export const SocketReducer = (
       return { ...state, users: action.payload as IUser[] };
     case "set_loading":
       return { ...state, isLoading: action.payload as boolean };
-    case "remove_user":
-      return {
-        ...state,
-        users: state.users.filter(
-          ({ id }) => id !== (action.payload as string)
-        ),
-      };
     default:
       return { ...state };
   }

@@ -33,3 +33,12 @@ export const getLastSeenText = (user: IUser) => {
 
   return "< 1 hour ago";
 };
+
+export const getMessageTime = (date: Date) => {
+  const now = new Date();
+  if (now.toDateString() === date.toDateString()) {
+    return `Today at ${date.getHours()}:${date.getMinutes()}`;
+  }
+
+  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+};

@@ -5,9 +5,10 @@ import { getColorHighlight } from "~/utils/colorUtils";
 
 type AvatarPropsType = {
   user: IUser;
+  showStatus?: boolean;
 };
 
-export const Avatar = ({ user }: AvatarPropsType) => {
+export const Avatar = ({ user, showStatus = true }: AvatarPropsType) => {
   const idleTreshold = new Date();
   idleTreshold.setMinutes(idleTreshold.getMinutes() - 15);
 
@@ -26,7 +27,7 @@ export const Avatar = ({ user }: AvatarPropsType) => {
       >
         <div>{usernameAbbreviation}</div>
       </div>
-      {user.isOnline && (
+      {showStatus && user.isOnline && (
         <div className={styles.status}>
           <div className={styles.online} />
           {isIdle && <div className={styles.idle} />}

@@ -1,0 +1,26 @@
+.message {
+  display: flex;
+  gap: 1rem;
+  color: rgb(210, 213, 217);
+}
+
+.messageDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.messageHeader {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.username {
+  color: rgb(235, 236, 239);
+}
+
+.messageTime {
+  font-size: 0.8em;
+  color: rgb(157, 157, 162);
+}

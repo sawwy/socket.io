@@ -20,18 +20,18 @@ export type SelectedUserDataType = {
   rect: DOMRect;
 };
 
-export interface IUserMessage {
-  type: MessageTypeEnum.UserMessage;
+interface IMessageBase {
   message: string;
   username: string;
   timestamp: string;
 }
 
-export interface ISystemMessage {
+export interface IUserMessage extends IMessageBase {
+  type: MessageTypeEnum.UserMessage;
+}
+
+export interface ISystemMessage extends IMessageBase {
   type: MessageTypeEnum.SystemMessage;
-  message: string;
-  username: string;
-  timestamp: string;
 }
 
 export type IMessage = ISystemMessage | IUserMessage;

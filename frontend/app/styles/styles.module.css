@@ -9,3 +9,7 @@
 .colorFillBlue {
   background-color: rgb(74, 72, 240);
 }
+
+body {
+  font-family: "Roboto", sans-serif;
+}

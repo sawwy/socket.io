@@ -16,6 +16,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@fontsource/roboto": "^5.0.12",
     "@remix-run/cloudflare": "^2.8.1",
     "@remix-run/cloudflare-pages": "^2.8.1",
     "@remix-run/react": "^2.8.1",

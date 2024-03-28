@@ -61,11 +61,11 @@ export const UserDetails = ({
           <div className={styles.username}>{user.username}</div>
           <div>
             <div className={styles.title}>LAST SEEN</div>
-            <div className={styles.text}>{getLastSeenText(user)}</div>
+            <div className={styles.text}>{getLastSeenText(user.lastSeen)}</div>
           </div>
           <div>
             <div className={styles.title}>JOINED</div>
-            <div className={styles.text}>{getJoinedText(user)}</div>
+            <div className={styles.text}>{getJoinedText(user.joined)}</div>
           </div>
         </div>
       </div>

@@ -7,7 +7,6 @@ export default function LobbyRoute() {
   const { username } = useContext(SocketContext).SocketState;
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("username", username);
     if (!username) {
       navigate("/joinroom");
     }

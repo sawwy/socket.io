@@ -10,13 +10,12 @@ type UserMessagePropsType = {
 
 export const UserMessage = ({ user, message }: UserMessagePropsType) => {
   const date = new Date(message.timestamp);
-  console.log("date", date);
 
   return (
-    <div className={styles.message}>
+    <div data-testid="chat-message" className={styles.message}>
       {user && <Avatar user={user} showStatus={false} />}
       <div className={styles.messageDetails}>
-        <div className={styles.messageHeader}>
+        <div data-testid="chat-message-header" className={styles.messageHeader}>
           <p className={styles.username}>{message.username}</p>
           <p className={styles.messageTime}>{getMessageTime(date)}</p>
         </div>

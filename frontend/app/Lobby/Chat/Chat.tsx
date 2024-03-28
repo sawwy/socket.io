@@ -74,6 +74,7 @@ export const Chat = () => {
         )}
       </div>
       <input
+        data-testid="chat-input"
         className={styles.input}
         value={message}
         onChange={handleOnTextInputChange}

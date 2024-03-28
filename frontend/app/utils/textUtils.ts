@@ -1,32 +1,31 @@
 import pluralize from "pluralize";
-import { IUser } from "~/types";
 
-export const getJoinedText = (user: IUser) => {
-  return `${user.joined.getDate()} ${user.joined.toLocaleString("default", {
+export const getJoinedText = (date: Date) => {
+  return `${date.getDate()} ${date.toLocaleString("default", {
     month: "short",
-  })} ${user.joined.getFullYear()}`;
+  })} ${date.getFullYear()}`;
 };
 
-export const getLastSeenText = (user: IUser) => {
+export const getLastSeenText = (date: Date) => {
   const now = new Date();
-  if (user.lastSeen.getFullYear() < now.getFullYear()) {
-    const year = now.getFullYear() - user.lastSeen.getFullYear();
+  if (date.getFullYear() < now.getFullYear()) {
+    const year = now.getFullYear() - date.getFullYear();
 
     return `${pluralize("year", year, true)} ago`;
   }
-  if (user.lastSeen.getMonth() < now.getMonth()) {
-    const month = now.getMonth() - user.lastSeen.getMonth();
+  if (date.getMonth() < now.getMonth()) {
+    const month = now.getMonth() - date.getMonth();
 
     return `${pluralize("month", month, true)} ago`;
   }
-  if (user.lastSeen.getDate() < now.getDate()) {
-    const day = now.getDate() - user.lastSeen.getDate();
+  if (date.getDate() < now.getDate()) {
+    const day = now.getDate() - date.getDate();
 
     return `${pluralize("day", day, true)} ago`;
   }
 
-  if (now.getHours() - user.lastSeen.getHours() > 0) {
-    const hour = now.getHours() - user.lastSeen.getHours();
+  if (now.getHours() - date.getHours() > 0) {
+    const hour = now.getHours() - date.getHours();
 
     return `${pluralize("hour", hour, true)} ago`;
   }

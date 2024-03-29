@@ -11,7 +11,7 @@ export interface IUser {
 export interface IUserMessage {
   messageType: MessageTypeEnum.UserMessage;
   message: string;
-  username: string;
+  user: IUser;
   timestamp: string;
 }
 

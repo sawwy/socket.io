@@ -34,7 +34,7 @@ export class ServerSocket {
 
     socket.on(
       "handshake",
-      (username, callback: (id: string, users: IUser[]) => void) => {
+      (username, successCallback: (id: string, users: IUser[]) => void) => {
         console.info("USERNAME: " + username);
         console.info("Handshake received from: " + socket.id);
 
@@ -51,7 +51,7 @@ export class ServerSocket {
             this.users[uid].lastSeen = new Date();
             this.users[uid].isOnline = true;
             const users = Object.values(this.users);
-            callback(username, users);
+            successCallback(username, users);
             return;
           }
         }
@@ -68,7 +68,7 @@ export class ServerSocket {
         this.users[uid] = newUser;
 
         const users = Object.values(this.users);
-        callback(username, users);
+        successCallback(username, users);
 
         this.sendMessage(
           "user_connected",
@@ -93,7 +93,7 @@ export class ServerSocket {
 
       if (uid) {
         const disconnectedUser = { ...this.users[uid] };
-        delete this.users[uid];
+        this.users[uid].isOnline = false;
 
         const users = Object.values(this.users);
 

@@ -35,14 +35,14 @@ describe("lobby user spec", () => {
 
   it("user profile view can be toggled on and off", () => {
     cy.openHomepage();
-    cy.get('[data-testid="username-input"]').type("qwerty{Enter}");
-    cy.get('[data-testid="lobby-user-details-qwerty"]').should("not.exist");
-    cy.get('[data-testid="lobby-user-button-qwerty"]').click();
-    cy.get('[data-testid="lobby-user-details-qwerty"]').should(
+    cy.get('[data-testid="username-input"]').type("koolaid{Enter}");
+    cy.get('[data-testid="lobby-user-details-koolaid"]').should("not.exist");
+    cy.get('[data-testid="lobby-user-button-koolaid"]').click();
+    cy.get('[data-testid="lobby-user-details-koolaid"]').should(
       "contain",
-      "qwerty"
+      "koolaid"
     );
     cy.get("body").click(0, 0);
-    cy.get('[data-testid="lobby-user-details-qwerty"]').should("not.exist");
+    cy.get('[data-testid="lobby-user-details-koolaid"]').should("not.exist");
   });
 });

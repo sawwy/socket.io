@@ -6,8 +6,6 @@ export interface IUser {
   lastSeen: Date;
   joined: Date;
   username: string;
-  avatar?: string;
-  description?: string;
 }
 
 export interface UserResponseType extends Omit<IUser, "lastSeen" | "joined"> {
@@ -20,18 +18,20 @@ export type SelectedUserDataType = {
   rect: DOMRect;
 };
 
-interface IMessageBase {
+export interface IUserMessage {
+  type: MessageTypeEnum.UserMessage;
   message: string;
-  username: string;
+  user: IUser;
   timestamp: string;
 }
 
-export interface IUserMessage extends IMessageBase {
-  type: MessageTypeEnum.UserMessage;
+export interface ISystemMessage {
+  type: MessageTypeEnum.SystemMessage;
+  message: string;
 }
 
-export interface ISystemMessage extends IMessageBase {
-  type: MessageTypeEnum.SystemMessage;
+export interface IUserMessageResponse extends Omit<IUserMessage, "user"> {
+  user: UserResponseType;
 }
 
 export type IMessage = ISystemMessage | IUserMessage;

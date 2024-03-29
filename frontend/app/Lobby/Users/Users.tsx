@@ -28,7 +28,7 @@ export const Users = ({ setSelectedUserData }: UsersPropsType) => {
         {onlineUsers.map((user) => {
           return (
             <User
-              key={user.username}
+              key={user.id}
               user={user}
               setSelectedUserData={setSelectedUserData}
             />
@@ -45,7 +45,7 @@ export const Users = ({ setSelectedUserData }: UsersPropsType) => {
         {offlineusers.map((user) => {
           return (
             <User
-              key={user.username}
+              key={user.id}
               user={user}
               setSelectedUserData={setSelectedUserData}
             />

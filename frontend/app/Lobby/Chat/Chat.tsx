@@ -7,10 +7,17 @@ import {
 } from "react";
 import styles from "./styles.module.css";
 import SocketContext from "~/contexts/Socket/Context";
-import { IMessage, ISystemMessage, IUserMessage } from "~/types";
+import {
+  IMessage,
+  IMessageResponse,
+  ISystemMessage,
+  IUserMessage,
+  IUserMessageResponse,
+} from "~/types";
 import { UserMessage } from "~/components/UserMessage/UserMessage";
 import { MessageTypeEnum } from "~/enums";
 import { SystemMessage } from "~/components/SystemMessge/SystemMessage";
+import { deserializeUsersResponse } from "~/utils/serializationUtils";
 
 export const Chat = () => {
   const [message, setMessage] = useState("");
@@ -19,10 +26,20 @@ export const Chat = () => {
   const { socket, username, isLoading, users } =
     useContext(SocketContext).SocketState;
 
+  const user = users.find((user) => user.username === username);
+
   useEffect(() => {
-    const onMessageEvent = (message: IUserMessage | ISystemMessage) => {
+    const onMessageEvent = (message: ISystemMessage | IUserMessageResponse) => {
       setMessages((prev) => {
         const newState = [...prev];
+        if (message.type === MessageTypeEnum.UserMessage) {
+          newState.push({
+            ...message,
+            user: deserializeUsersResponse(message.user),
+          });
+          return newState;
+        }
+
         newState.push(message);
         return newState;
       });
@@ -48,7 +65,7 @@ export const Chat = () => {
       const timestamp = new Date();
       socket.emit("message", {
         message,
-        username,
+        user,
         timestamp,
         type: MessageTypeEnum.UserMessage,
       });
@@ -60,14 +77,12 @@ export const Chat = () => {
     return <div>Loading ...</div>;
   }
 
-  const user = users.find((user) => user.username === username);
-
   return (
     <div className={styles.chat}>
       <div className={styles.messages}>
         {messages.map((message, i) =>
           message.type === MessageTypeEnum.UserMessage ? (
-            <UserMessage key={i} user={user} message={message} />
+            <UserMessage key={i} user={message.user} message={message} />
           ) : (
             <SystemMessage key={i} message={message} />
           )

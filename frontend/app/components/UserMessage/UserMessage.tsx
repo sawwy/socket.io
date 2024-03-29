@@ -16,7 +16,7 @@ export const UserMessage = ({ user, message }: UserMessagePropsType) => {
       {user && <Avatar user={user} showStatus={false} />}
       <div className={styles.messageDetails}>
         <div data-testid="chat-message-header" className={styles.messageHeader}>
-          <p className={styles.username}>{message.username}</p>
+          <p className={styles.username}>{message.user.username}</p>
           <p className={styles.messageTime}>{getMessageTime(date)}</p>
         </div>
         <p>{message.message}</p>

@@ -84,7 +84,7 @@ export const Lobby = () => {
       <Users setSelectedUserData={setSelectedUserData} />
       {selectedUserData && (
         <UserDetails
-          key={selectedUserData.user.username}
+          key={selectedUserData.user.id}
           selectedUserData={selectedUserData}
           setSelectedUserData={setSelectedUserData}
         />

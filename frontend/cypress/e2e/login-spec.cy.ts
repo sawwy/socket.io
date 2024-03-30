@@ -1,6 +1,9 @@
 import { UsernameErrorsEnum } from "~/enums";
 
 describe("joinroom spec", () => {
+  beforeEach(() => {
+    cy.request("http://localhost:3500/flushUsers");
+  });
   it("displays username errors correctly", () => {
     cy.openHomepage();
     cy.get('[data-testid="joinroom-button"]').click();

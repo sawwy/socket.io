@@ -7,13 +7,7 @@ import {
 } from "react";
 import styles from "./styles.module.css";
 import SocketContext from "~/contexts/Socket/Context";
-import {
-  IMessage,
-  IMessageResponse,
-  ISystemMessage,
-  IUserMessage,
-  IUserMessageResponse,
-} from "~/types";
+import { IMessage, ISystemMessage, IUserMessageResponse } from "~/types";
 import { UserMessage } from "~/components/UserMessage/UserMessage";
 import { MessageTypeEnum } from "~/enums";
 import { SystemMessage } from "~/components/SystemMessge/SystemMessage";

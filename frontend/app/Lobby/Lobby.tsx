@@ -3,7 +3,11 @@ import { Chat } from "./Chat/Chat";
 import { Users } from "./Users/Users";
 import { useContext, useEffect, useState } from "react";
 import { UserDetails } from "./UserDetails/UserDetails";
-import { SelectedUserDataType, UserResponseType } from "~/types";
+import {
+  IHandshakeResponse,
+  SelectedUserDataType,
+  IUserResponse,
+} from "~/types";
 import SocketContext from "~/contexts/Socket/Context";
 import { deserializeUsersResponse } from "~/utils/serializationUtils";
 
@@ -30,7 +34,19 @@ export const Lobby = () => {
 
   const startListeners = () => {
     if (socket) {
-      socket.on("user_connected", (users: UserResponseType[]) => {
+      socket.on(
+        "handshake_success",
+        ({ username, users }: IHandshakeResponse) => {
+          console.log("handshake success", username, users);
+          dispatch({ type: "update_username", payload: username });
+          dispatch({
+            type: "update_users",
+            payload: users.map((user) => deserializeUsersResponse(user)),
+          });
+          dispatch({ type: "set_loading", payload: false });
+        }
+      );
+      socket.on("user_connected", (users: IUserResponse[]) => {
         console.info("User connected, new user list received");
         dispatch({
           type: "update_users",
@@ -38,7 +54,7 @@ export const Lobby = () => {
         });
       });
 
-      socket.on("user_disconnected", (users: UserResponseType[]) => {
+      socket.on("user_disconnected", (users: IUserResponse[]) => {
         console.info("User disconnected, new user list received");
         dispatch({
           type: "update_users",
@@ -63,18 +79,7 @@ export const Lobby = () => {
   };
   const sendHandshake = () => {
     if (socket) {
-      socket.emit(
-        "handshake",
-        username,
-        (username: string, users: UserResponseType[]) => {
-          dispatch({ type: "update_username", payload: username });
-          dispatch({
-            type: "update_users",
-            payload: users.map((user) => deserializeUsersResponse(user)),
-          });
-          dispatch({ type: "set_loading", payload: false });
-        }
-      );
+      socket.emit("handshake", username);
     }
   };
 

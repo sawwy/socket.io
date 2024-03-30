@@ -8,7 +8,7 @@ export interface IUser {
   username: string;
 }
 
-export interface UserResponseType extends Omit<IUser, "lastSeen" | "joined"> {
+export interface IUserResponse extends Omit<IUser, "lastSeen" | "joined"> {
   lastSeen: string;
   joined: string;
 }
@@ -31,7 +31,12 @@ export interface ISystemMessage {
 }
 
 export interface IUserMessageResponse extends Omit<IUserMessage, "user"> {
-  user: UserResponseType;
+  user: IUserResponse;
 }
 
 export type IMessage = ISystemMessage | IUserMessage;
+
+export type IHandshakeResponse {
+  username: string;
+  users: IUserResponse[]
+}

@@ -1,6 +1,6 @@
-import { UserResponseType } from "~/types";
+import { IUserResponse } from "~/types";
 
-export const deserializeUsersResponse = (user: UserResponseType) => {
+export const deserializeUsersResponse = (user: IUserResponse) => {
   const deserializedUser = {
     ...user,
     lastSeen: new Date(user.lastSeen),

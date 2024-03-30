@@ -32,59 +32,64 @@ export class ServerSocket {
   startListeners = (socket: Socket) => {
     console.info("Message received from " + socket.id);
 
-    socket.on(
-      "handshake",
-      (username, successCallback: (id: string, users: IUser[]) => void) => {
-        console.info("USERNAME: " + username);
-        console.info("Handshake received from: " + socket.id);
+    socket.on("handshake", (username) => {
+      console.info("USERNAME: " + username);
+      console.info("Handshake received from: " + socket.id);
 
-        const reconnectedUser = Object.values(this.users).find(
-          (user) => user.id === socket.id
-        );
+      const reconnectedUser = Object.values(this.users).find(
+        (user) => user.id === socket.id
+      );
 
-        if (reconnectedUser) {
-          console.info("This user has reconnected.");
+      if (reconnectedUser) {
+        console.info("This user has reconnected.");
 
-          const uid = this.getUidFromSocketID(socket.id);
+        const uid = this.getUidFromSocketID(socket.id);
 
-          if (uid) {
-            this.users[uid].lastSeen = new Date();
-            this.users[uid].isOnline = true;
-            const users = Object.values(this.users);
-            successCallback(username, users);
-            return;
-          }
+        if (uid) {
+          this.users[uid].lastSeen = new Date();
+          this.users[uid].isOnline = true;
+          const users = Object.values(this.users);
+          this.sendMessage("handshake_success", [reconnectedUser], {
+            username,
+            users,
+          });
+          // successCallback(username, users);
+          return;
         }
-
-        const uid = v4();
-
-        const newUser = {
-          id: socket.id,
-          username,
-          isOnline: true,
-          lastSeen: new Date(),
-          joined: new Date(),
-        };
-        this.users[uid] = newUser;
-
-        const users = Object.values(this.users);
-        successCallback(username, users);
-
-        this.sendMessage(
-          "user_connected",
-          users.filter((user) => user.id !== socket.id),
-          users
-        );
-        this.sendMessage(
-          "message",
-          users.filter((user) => user.id !== socket.id),
-          {
-            type: MessageTypeEnum.SystemMessage,
-            message: `${newUser.username} has joined the lobby, Hooray!`,
-          }
-        );
       }
-    );
+
+      const uid = v4();
+
+      const newUser = {
+        id: socket.id,
+        username,
+        isOnline: true,
+        lastSeen: new Date(),
+        joined: new Date(),
+      };
+      this.users[uid] = newUser;
+
+      const users = Object.values(this.users);
+      this.sendMessage("handshake_success", [newUser], {
+        username,
+        users,
+      });
+      // successCallback(username, users);
+
+      this.sendMessage(
+        "user_connected",
+        users.filter((user) => user.id !== socket.id),
+        users
+      );
+      this.sendMessage(
+        "message",
+        users.filter((user) => user.id !== socket.id),
+        {
+          type: MessageTypeEnum.SystemMessage,
+          message: `${newUser.username} has joined the lobby, Hooray!`,
+        }
+      );
+    });
 
     socket.on("disconnect", () => {
       console.info("Disconnect received from: " + socket.id);

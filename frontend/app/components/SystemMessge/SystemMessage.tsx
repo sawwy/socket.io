@@ -7,7 +7,7 @@ type SystemMessagePropsType = {
 
 export const SystemMessage = ({ message }: SystemMessagePropsType) => {
   return (
-    <div className={styles.message}>
+    <div data-testid="chat-systemmessage" className={styles.message}>
       <p>{message.message}</p>
     </div>
   );

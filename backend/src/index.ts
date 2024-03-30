@@ -6,7 +6,7 @@ const app = express();
 
 const httpServer = createServer(app);
 
-new ServerSocket(httpServer);
+const serverSocket = new ServerSocket(httpServer);
 
 /** Log the request */
 app.use((req, res, next) => {
@@ -21,6 +21,11 @@ app.use((req, res, next) => {
   });
 
   next();
+});
+
+app.get("/flushUsers", (req, res) => {
+  serverSocket.users = {};
+  res.sendStatus(200);
 });
 
 app.use((req, res, next) => {

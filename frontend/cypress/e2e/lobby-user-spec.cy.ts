@@ -1,6 +1,9 @@
 import { getJoinedText } from "~/utils/textUtils";
 
 describe("lobby user spec", () => {
+  beforeEach(() => {
+    cy.request("http://localhost:3500/flushUsers");
+  });
   it("opens user profile view with correct details", () => {
     cy.openHomepage();
     cy.get('[data-testid="username-input"]').type("qwerty{Enter}");

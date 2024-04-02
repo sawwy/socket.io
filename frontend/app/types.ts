@@ -36,7 +36,7 @@ export interface IUserMessageResponse extends Omit<IUserMessage, "user"> {
 
 export type IMessage = ISystemMessage | IUserMessage;
 
-export type IHandshakeResponse {
+export type IHandshakeResponse = {
   username: string;
-  users: IUserResponse[]
-}
+  users: IUserResponse[];
+};

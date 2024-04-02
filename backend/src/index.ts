@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { ServerSocket } from "./socket";
+import { ServerSocket } from "./socket.ts";
 import express from "express";
 
 const app = express();

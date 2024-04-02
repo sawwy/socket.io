@@ -1,4 +1,4 @@
-import { MessageTypeEnum } from "./enums";
+import { MessageTypeEnum } from "./enums.ts";
 
 export interface IUser {
   id: string;

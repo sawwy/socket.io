@@ -1,8 +1,8 @@
 import { Server as HttpServer } from "http";
 import { Socket, Server } from "socket.io";
 import { v4 } from "uuid";
-import { IUser, IUserMessage } from "./types";
-import { MessageTypeEnum } from "./enums";
+import { IUser, IUserMessage } from "./types.ts";
+import { MessageTypeEnum } from "./enums.ts";
 export class ServerSocket {
   public static instance: ServerSocket;
   public io: Server;
@@ -53,7 +53,6 @@ export class ServerSocket {
             username,
             users,
           });
-          // successCallback(username, users);
           return;
         }
       }
@@ -74,7 +73,6 @@ export class ServerSocket {
         username,
         users,
       });
-      // successCallback(username, users);
 
       this.sendMessage(
         "user_connected",

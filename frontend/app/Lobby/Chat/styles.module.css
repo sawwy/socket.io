@@ -8,6 +8,7 @@
   justify-content: flex-end;
   padding: 1rem;
   gap: 1rem;
+  overflow-y: auto;
 }
 
 .input {
@@ -22,4 +23,5 @@
   margin-bottom: 1rem;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-y: auto;
 }

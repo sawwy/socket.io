@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SystemMessage Snapshot Matches DOM Snapshot 1`] = `
+<div
+  className="message"
+  data-testid="chat-systemmessage"
+>
+  <p>
+    Qwerty has joined the lobby
+  </p>
+</div>
+`;

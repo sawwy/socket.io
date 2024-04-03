@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SystemMessage Snapshot Matches DOM Snapshot 1`] = `
+<div
+  className="message"
+  data-testid="chat-usermessage"
+>
+  <div
+    className="messageDetails"
+  >
+    <div
+      className="messageHeader"
+      data-testid="chat-usermessage-header"
+    >
+      <p
+        className="username"
+      >
+        qwerty
+      </p>
+      <p
+        className="messageTime"
+      >
+        2/3/2024 16:0
+      </p>
+    </div>
+    <p>
+      Qwerty has joined the lobby
+    </p>
+  </div>
+</div>
+`;

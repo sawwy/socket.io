@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": ".ts,.js",
   "ignore": ["node_modules", "test/**/*.spec.ts"],
-  "exec": "npx ts-node ./src/index.ts"
+  "exec": "tsx ./src/index.ts"
 }

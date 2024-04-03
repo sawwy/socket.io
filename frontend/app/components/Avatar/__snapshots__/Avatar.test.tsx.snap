@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar Snapshot Matches DOM Snapshot 1`] = `
+<div
+  className="avatar"
+>
+  <div
+    aria-label="avatar of user qwerty"
+    className="avatarContent colorFillGreen
+        )}"
+  >
+    <div>
+      qw
+    </div>
+  </div>
+  <div
+    className="status"
+  >
+    <div
+      className="online"
+    />
+    <div
+      className="idle"
+    />
+  </div>
+</div>
+`;

@@ -38,8 +38,12 @@
 
 Cypress.Commands.add("openHomepage", () => {
   cy.visit("/");
+  // Very rough cut way to handle hydration problems with Remix + React 18.2
+  cy.wait(3000);
 });
 
 Cypress.Commands.add("openLobby", () => {
   cy.visit("/lobby");
+  // Very rough cut way to handle hydration problems with Remix + React 18.2
+  cy.wait(3000);
 });

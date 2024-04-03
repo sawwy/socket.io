@@ -1,16 +1,9 @@
 import { useContext } from "react";
 import styles from "./styles.module.css";
-import { SelectedUserDataType } from "~/types";
 import { User } from "../User/User";
 import SocketContext from "~/contexts/Socket/Context";
 
-type UsersPropsType = {
-  setSelectedUserData: React.Dispatch<
-    React.SetStateAction<SelectedUserDataType | undefined>
-  >;
-};
-
-export const Users = ({ setSelectedUserData }: UsersPropsType) => {
+export const Users = () => {
   const { users } = useContext(SocketContext).SocketState;
 
   const onlineUsers = users.filter((user) => user.isOnline);
@@ -26,13 +19,7 @@ export const Users = ({ setSelectedUserData }: UsersPropsType) => {
           <span>ONLINE - {onlineUsers.length}</span>
         </div>
         {onlineUsers.map((user) => {
-          return (
-            <User
-              key={user.id}
-              user={user}
-              setSelectedUserData={setSelectedUserData}
-            />
-          );
+          return <User key={user.id} user={user} />;
         })}
       </div>
       <div>
@@ -43,13 +30,7 @@ export const Users = ({ setSelectedUserData }: UsersPropsType) => {
           <span>OFFLINE - {offlineusers.length}</span>
         </div>
         {offlineusers.map((user) => {
-          return (
-            <User
-              key={user.id}
-              user={user}
-              setSelectedUserData={setSelectedUserData}
-            />
-          );
+          return <User key={user.id} user={user} />;
         })}
       </div>
     </div>

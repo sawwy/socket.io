@@ -1,12 +1,13 @@
 import { createContext } from "react";
 import { Socket } from "socket.io-client";
-import { IUser } from "~/types";
+import { IUser, SelectedUserDataType } from "~/types";
 
 export interface ISocketContextState {
-  socket: Socket | undefined;
   username: string;
   users: IUser[];
   isLoading: boolean;
+  socket?: Socket;
+  selectedUserData?: SelectedUserDataType;
 }
 
 export const defaultSocketContextState: ISocketContextState = {
@@ -14,6 +15,7 @@ export const defaultSocketContextState: ISocketContextState = {
   username: "",
   users: [],
   isLoading: false,
+  selectedUserData: undefined,
 };
 
 export type SocketContextActionsType =
@@ -21,9 +23,16 @@ export type SocketContextActionsType =
   | "update_username"
   | "update_users"
   | "remove_user"
-  | "set_loading";
+  | "set_loading"
+  | "set_selecteduserdata";
 
-export type SocketContextPayloadType = string | IUser[] | Socket | boolean;
+export type SocketContextPayloadType =
+  | string
+  | IUser[]
+  | Socket
+  | boolean
+  | SelectedUserDataType
+  | undefined;
 
 export interface ISocketContextActions {
   type: SocketContextActionsType;
@@ -43,6 +52,11 @@ export const SocketReducer = (
       return { ...state, users: action.payload as IUser[] };
     case "set_loading":
       return { ...state, isLoading: action.payload as boolean };
+    case "set_selecteduserdata":
+      return {
+        ...state,
+        selectedUserData: action.payload as SelectedUserDataType,
+      };
     default:
       return { ...state };
   }

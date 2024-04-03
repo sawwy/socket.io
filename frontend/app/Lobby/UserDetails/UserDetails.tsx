@@ -3,23 +3,19 @@ import styles from "./styles.module.css";
 import globalStyles from "~/styles/styles.module.css";
 import { Avatar } from "~/components/Avatar/Avatar";
 import { getColorHighlight } from "~/utils/colorUtils";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useOnClickOutside } from "~/hooks/useOnClickOutside";
 import { getJoinedText, getLastSeenText } from "~/utils/textUtils";
+import SocketContext from "~/contexts/Socket/Context";
 
 type UserDetailsPropsType = {
   selectedUserData: SelectedUserDataType;
-  setSelectedUserData: React.Dispatch<
-    React.SetStateAction<SelectedUserDataType | undefined>
-  >;
 };
 
-export const UserDetails = ({
-  selectedUserData,
-  setSelectedUserData,
-}: UserDetailsPropsType) => {
+export const UserDetails = ({ selectedUserData }: UserDetailsPropsType) => {
   const { user, rect } = selectedUserData;
   const ref = useRef(null);
+  const dispatch = useContext(SocketContext).SocketDispatch;
 
   const handleClickOutside = (event: MouseEvent | TouchEvent | FocusEvent) => {
     if (event instanceof MouseEvent) {
@@ -33,7 +29,7 @@ export const UserDetails = ({
       }
     }
 
-    setSelectedUserData(undefined);
+    dispatch({ type: "set_selecteduserdata", payload: undefined });
   };
 
   useOnClickOutside(ref, handleClickOutside);

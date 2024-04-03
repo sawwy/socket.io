@@ -5,8 +5,8 @@ import { UsernameErrorsEnum } from "~/enums";
 import SocketContext from "~/contexts/Socket/Context";
 
 export const Joinroom = () => {
-  const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
+  const { username } = useContext(SocketContext).SocketState;
   const usernameInputId = useId();
   const navigate = useNavigate();
   const dispatch = useContext(SocketContext).SocketDispatch;
@@ -21,7 +21,6 @@ export const Joinroom = () => {
 
   const handleOnTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const textValue = e.target.value.toString();
-    setUsername(textValue);
     dispatch({ type: "update_username", payload: textValue });
     if (usernameError) {
       if (textValue.length > 3) {

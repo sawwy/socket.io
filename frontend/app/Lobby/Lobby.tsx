@@ -3,19 +3,13 @@ import { Chat } from "./Chat/Chat";
 import { Users } from "./Users/Users";
 import { useContext, useEffect, useState } from "react";
 import { UserDetails } from "./UserDetails/UserDetails";
-import {
-  IHandshakeResponse,
-  SelectedUserDataType,
-  IUserResponse,
-} from "~/types";
+import { IHandshakeResponse, IUserResponse } from "~/types";
 import SocketContext from "~/contexts/Socket/Context";
 import { deserializeUsersResponse } from "~/utils/serializationUtils";
 
 export const Lobby = () => {
-  const [selectedUserData, setSelectedUserData] =
-    useState<SelectedUserDataType>();
-
-  const { socket, username } = useContext(SocketContext).SocketState;
+  const { socket, username, selectedUserData } =
+    useContext(SocketContext).SocketState;
   const dispatch = useContext(SocketContext).SocketDispatch;
 
   useEffect(() => {
@@ -86,12 +80,11 @@ export const Lobby = () => {
   return (
     <div className={styles.container}>
       <Chat />
-      <Users setSelectedUserData={setSelectedUserData} />
+      <Users />
       {selectedUserData && (
         <UserDetails
           key={selectedUserData.user.id}
           selectedUserData={selectedUserData}
-          setSelectedUserData={setSelectedUserData}
         />
       )}
     </div>

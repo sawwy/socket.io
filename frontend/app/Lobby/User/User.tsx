@@ -1,17 +1,17 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styles from "./styles.module.css";
-import { SelectedUserDataType, IUser } from "~/types";
+import { IUser } from "~/types";
 import { Avatar } from "~/components/Avatar/Avatar";
+import SocketContext from "~/contexts/Socket/Context";
 
 type UserPropsType = {
   user: IUser;
-  setSelectedUserData: React.Dispatch<
-    React.SetStateAction<SelectedUserDataType | undefined>
-  >;
 };
 
-export const User = ({ user, setSelectedUserData }: UserPropsType) => {
+export const User = ({ user }: UserPropsType) => {
   const userContainerRef = useRef<HTMLButtonElement>(null);
+  const { selectedUserData } = useContext(SocketContext).SocketState;
+  const dispatch = useContext(SocketContext).SocketDispatch;
 
   const idleTreshold = new Date();
   idleTreshold.setMinutes(-15);
@@ -19,15 +19,18 @@ export const User = ({ user, setSelectedUserData }: UserPropsType) => {
   const handleOnClickUser = (user: IUser) => {
     if (userContainerRef.current) {
       const rect = userContainerRef.current.getBoundingClientRect();
-      setSelectedUserData((prev) => {
-        if (prev?.user.username === user.username) {
-          return undefined;
-        }
-        return {
-          user,
-          rect,
-        };
-      });
+
+      if (selectedUserData?.user.username === user.username) {
+        dispatch({ type: "set_selecteduserdata", payload: undefined });
+      } else {
+        dispatch({
+          type: "set_selecteduserdata",
+          payload: {
+            user,
+            rect,
+          },
+        });
+      }
     }
   };
 

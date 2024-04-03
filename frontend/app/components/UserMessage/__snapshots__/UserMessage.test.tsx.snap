@@ -20,7 +20,7 @@ exports[`SystemMessage Snapshot Matches DOM Snapshot 1`] = `
       <p
         className="messageTime"
       >
-        2/3/2024 16:0
+        Today at 16:00
       </p>
     </div>
     <p>

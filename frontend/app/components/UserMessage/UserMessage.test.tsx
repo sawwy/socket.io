@@ -19,6 +19,13 @@ const message: IUserMessage = {
 };
 
 describe("SystemMessage Snapshot", () => {
+  beforeEach(() => {
+    jest.useFakeTimers({ now: new Date("2024-04-02T16:00:00") });
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
   it("Matches DOM Snapshot", () => {
     const domTree = renderer.create(<UserMessage message={message} />).toJSON();
     expect(domTree).toMatchSnapshot();

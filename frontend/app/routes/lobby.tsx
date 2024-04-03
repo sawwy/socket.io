@@ -1,6 +1,6 @@
 import { useNavigate } from "@remix-run/react";
 import { useContext, useEffect } from "react";
-import { Lobby } from "~/Lobby/Lobby";
+import { Lobby } from "~/views/Lobby/Lobby";
 import SocketContext from "~/contexts/Socket/Context";
 
 export default function LobbyRoute() {

@@ -1,4 +1,4 @@
-import { Joinroom } from "~/Joinroom/Joinroom";
+import { Joinroom } from "~/views/Joinroom/Joinroom";
 
 export default function JoinRoomRoute() {
   return <Joinroom />;

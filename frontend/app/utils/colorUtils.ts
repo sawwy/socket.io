@@ -5,10 +5,10 @@ type StylesType = {
 };
 
 export const getColorHighlight = (user: IUser, styles: StylesType) => {
-  if (user.username.match(/^[a-c]/)) {
+  if (user.username.match(/^[a-c]/i)) {
     return styles.colorFillBlue;
   }
-  if (user.username.match(/^[d-k]/)) {
+  if (user.username.match(/^[d-k]/i)) {
     return styles.colorFillPink;
   }
 

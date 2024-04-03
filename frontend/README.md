@@ -1,48 +1,85 @@
-# Welcome to Remix + Vite!
+# Noice Frontend (+ backend endeavour)
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
+The application consist of frontend and backend with focus on the frontend.
 
-## Typegen
+## Scope
 
-Generate types for your Cloudflare bindings in `wrangler.toml`:
+The project was first built up as a pure frontend assingment but decided to check the backend side for the fullstack. I would still deem the exercise based mostly on the frontend as the backend is basically only for the dev / excerice scope and would have a lot to to improve for an actual production build.
+
+In general, here are some remarks of the assignment scope and possible further development ideas. Saving comments on topics such as Login / Session / etc:
+
+1. Basic CSS Modules could be upgraded with sass
+2. Color scheme was stolen from discord but overall design architeture would use shared tokens / variables
+3. Both backend and frontend create a layered testing architectture but next level would be in creating actual production builds with tests
+4. Texts could be internationalized
+5. Chat and User list supports scrolling but there is room in tracking user activity and handling new messages depending users vertical scroll position. Longer message history should be virtualized / paged
+6. Backend: exposes `/flushUsers` to support E2E testing. For real production deployment there should at least be e.g. an env variable so the api is only usable in dev / staging / ci
+7. Backend: Users are currently stored in-memory in the backend.
+8. Backend: message history should be stored somewhere
+9. Remix library had some hydration issues with React 18.2. These were very bluntly side-stepped with a `cy.wait()`. For a real app, I would strongly reconsider using Remix in the first place or at least have a look on [remix-island](https://github.com/Xiphe/remix-island)
+
+### Structure
+
+The code is divided in `frontend` and `backend` folders.
+
+For the frontend, the most interesting parts can be found inside `app` and `cypress` folders.
+
+The contents of app include:
+
+`components`: Standalone building blocks that include jest snapshots to bolster against accidental breaking changes in the future.
+`contexts`: Basic React Context structure to provide the logic for state updates. For an app of a bigger scope, I would consider e.g. Redux Toolkit
+`hooks`: A couple of small abstractions for socket usage and tracking/reacting to user interactions for clicks outside an html element
+`routes`: simple routes used Remix
+`styles`: General css reset and a shared stylesheets
+`utils`: helper functions
+`views`: The main layout files for the "login" and "lobby" views.
+
+Outside `enums` and `types`, the rest of the files inside the app folder are Remix generated scaffolding. `cypress` folder hosts the e2e specs.
+
+### Libraries
+
+1. Decided to take the React Remix for a spin as the boilerplate app
+2. cypress for 2e2 tests
+3. identity-obj-proxy to solve css module mapping with ts-jest
+4. ts-jest for creating component snapshots
+5. react-test-renderer for jest snapsnots
+6. pluralize to assist in creating texts for the UI
+7. usehooks-ts to assist in creating custom hooks
+
+## Start up
+
+Using node (v21.6.2)
+Install via yarn and start up dev servers.
+
+Backend (`./backend`):
 
 ```sh
-npm run typegen
+yarn
+yarn dev
 ```
 
-You will need to rerun typegen whenever you make changes to `wrangler.toml`.
-
-## Development
-
-Run the Vite dev server:
+Frontend (`./frontend`):
 
 ```sh
-npm run dev
+yarn
+yarn dev
 ```
 
-To run Wrangler:
+check the frontend prompt for the address and open in browser (likely: http://localhost:5173/)
+
+## Testing
+
+Test can be run separately on backend and frontend. Current structure is built on the idea that frontend tests would be run against a backend server on a ci pipeline. E.g spinning up frontend and backend containers with docker.
+
+### Backend
 
 ```sh
-npm run build
-npm run start
+yarn test
 ```
 
-## Deployment
-
-> [!WARNING]  
-> Cloudflare does _not_ use `wrangler.toml` to configure deployment bindings.
-> You **MUST** [configure deployment bindings manually in the Cloudflare dashboard][bindings].
-
-First, build your app for production:
+### Frontend
 
 ```sh
-npm run build
+yarn test:jest
+yarn test:cypress
 ```
-
-Then, deploy your app to Cloudflare Pages:
-
-```sh
-npm run deploy
-```
-
-[bindings]: https://developers.cloudflare.com/pages/functions/bindings/

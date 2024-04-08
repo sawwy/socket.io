@@ -10,7 +10,7 @@ import SocketContext from "~/contexts/Socket/Context";
 import { IMessage, ISystemMessage, IUserMessageResponse } from "~/types";
 import { UserMessage } from "~/components/UserMessage/UserMessage";
 import { MessageTypeEnum } from "~/enums";
-import { SystemMessage } from "~/components/SystemMessge/SystemMessage";
+import { SystemMessage } from "~/components/SystemMessage/SystemMessage";
 import { deserializeUsersResponse } from "~/utils/serializationUtils";
 
 export const Chat = () => {

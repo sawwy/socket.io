@@ -4,7 +4,7 @@ The application consist of frontend and backend with focus on the frontend.
 
 ## Scope
 
-The project was first built up as a pure frontend assingment but decided to check the backend side for the fullstack. I would still deem the exercise based mostly on the frontend as the backend is basically only for the dev / excerice scope and would have a lot to to improve for an actual production build.
+The project was first built up as a pure frontend assignment but decided to check the backend side for the fullstack. I would still deem the exercise based mostly on the frontend as the backend is basically only for the dev / excerice scope and would have a lot to to improve for an actual production build.
 
 In general, here are some remarks of the assignment scope and possible further development ideas. Saving comments on topics such as Login / Session / etc:
 
@@ -17,6 +17,7 @@ In general, here are some remarks of the assignment scope and possible further d
 7. Backend: Users are currently stored in-memory in the backend.
 8. Backend: message history should be stored somewhere
 9. Remix library had some hydration issues with React 18.2. These were very bluntly side-stepped with a `cy.wait()`. For a real app, I would strongly reconsider using Remix in the first place or at least have a look on [remix-island](https://github.com/Xiphe/remix-island)
+10. Frontend styles for desktop experience. Would likely create separate components for the mobile web users to nail the ux on mobile.
 
 ### Structure
 

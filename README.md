@@ -1,12 +1,10 @@
-# Noice Frontend (+ backend endeavour)
-
-The application consist of frontend and backend with focus on the frontend.
+# Socket.IO testing with Remix
 
 ## Scope
 
-The project was first built up as a pure frontend assignment but decided to check the backend side for the fullstack. I would still deem the exercise based mostly on the frontend as the backend is basically only for the dev / excerice scope and would have a lot to to improve for an actual production build.
+Backend just for fun, mainly frontend stuff. Using Remix for frontend.
 
-In general, here are some remarks of the assignment scope and possible further development ideas. Saving comments on topics such as Login / Session / etc:
+Future considerations:
 
 1. Basic CSS Modules could be upgraded with sass
 2. Color scheme was stolen from discord but overall design architeture would use shared tokens / variables
@@ -20,8 +18,6 @@ In general, here are some remarks of the assignment scope and possible further d
 10. Frontend styles for desktop experience. Would likely create separate components for the mobile web users to nail the ux on mobile.
 
 ### Structure
-
-The code is divided in `frontend` and `backend` folders.
 
 For the frontend, the most interesting parts can be found inside `app` and `cypress` folders.
 

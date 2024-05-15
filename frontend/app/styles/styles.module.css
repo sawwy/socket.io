@@ -1,13 +1,19 @@
-.colorFillGreen {
-  background-color: rgb(51, 151, 74);
+:root {
+  --color-green: rgb(51, 151, 74);
+  --color-pink: rgb(230, 40, 139);
+  --color-blue: rgb(74, 72, 240);
 }
 
-.colorFillPink {
-  background-color: rgb(230, 40, 139);
+.fillColorGreen {
+  background-color: var(--color-green);
 }
 
-.colorFillBlue {
-  background-color: rgb(74, 72, 240);
+.fillColorPink {
+  background-color: var(--color-pink);
+}
+
+.fillColorBlue {
+  background-color: var(--color-blue);
 }
 
 body {

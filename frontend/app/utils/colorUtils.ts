@@ -1,16 +1,13 @@
 import { IUser } from "~/types";
+import globalStyles from "~/styles/styles.module.css";
 
-type StylesType = {
-  readonly [key: string]: string;
-};
-
-export const getColorHighlight = (user: IUser, styles: StylesType) => {
+export const getColorFill = (user: IUser) => {
   if (user.username.match(/^[a-c]/i)) {
-    return styles.colorFillBlue;
+    return globalStyles.fillColorBlue;
   }
   if (user.username.match(/^[d-k]/i)) {
-    return styles.colorFillPink;
+    return globalStyles.fillColorPink;
   }
 
-  return styles.colorFillGreen;
+  return globalStyles.fillColorGreen;
 };

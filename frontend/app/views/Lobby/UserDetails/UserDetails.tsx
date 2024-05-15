@@ -2,7 +2,7 @@ import { SelectedUserDataType } from "~/types";
 import styles from "./styles.module.css";
 import globalStyles from "~/styles/styles.module.css";
 import { Avatar } from "~/components/Avatar/Avatar";
-import { getColorHighlight } from "~/utils/colorUtils";
+import { getColorFill } from "~/utils/colorUtils";
 import { useContext, useRef } from "react";
 import { useOnClickOutside } from "~/hooks/useOnClickOutside";
 import { getJoinedText, getLastSeenText } from "~/utils/textUtils";
@@ -43,9 +43,7 @@ export const UserDetails = ({ selectedUserData }: UserDetailsPropsType) => {
         left: rect.left - 256 - 16,
       }}
     >
-      <div
-        className={`${styles.header} ${getColorHighlight(user, globalStyles)}`}
-      />
+      <div className={`${styles.header} ${getColorFill(user, globalStyles)}`} />
       <div className={styles.avatar}>
         <Avatar user={user} />
       </div>

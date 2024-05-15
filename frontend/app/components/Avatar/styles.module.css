@@ -48,13 +48,13 @@
 }
 
 .fillGreen {
-  background-color: rgb(51, 151, 74);
+  background-color: var(--color-green);
 }
 
 .fillPink {
-  background-color: rgb(230, 40, 139);
+  background-color: var(--color-pink);
 }
 
 .fillBlue {
-  background-color: rgb(74, 72, 240);
+  background-color: var(--color-blue);
 }

@@ -1,7 +1,7 @@
 import { IUser } from "~/types";
 import styles from "./styles.module.css";
 import globalStyles from "~/styles/styles.module.css";
-import { getColorHighlight } from "~/utils/colorUtils";
+import { getColorFill as getColorFill } from "~/utils/colorUtils";
 
 type AvatarPropsType = {
   user: IUser;
@@ -18,10 +18,7 @@ export const Avatar = ({ user, showStatus = true }: AvatarPropsType) => {
   return (
     <div className={styles.avatar}>
       <div
-        className={`${styles.avatarContent} ${getColorHighlight(
-          user,
-          globalStyles
-        )}
+        className={`${styles.avatarContent} ${getColorFill(user)}
         )}`}
         aria-label={`avatar of user ${user.username}`}
       >
